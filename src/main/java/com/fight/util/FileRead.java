@@ -23,7 +23,7 @@ public class FileRead {
     public static void main(String[] args) throws Exception {
         String fullFileName = "C:\\new_tdx\\T0002\\export\\自选股.xlsx";
         InputStream is = new FileInputStream(fullFileName);
-        List<Future> futures = readXlsx(is);
+        readXlsx(is);
         /*ObjectMapper objectMapper = new ObjectMapper();
         String futuresStr = objectMapper.writeValueAsString(futures);
         System.out.println(futuresStr);*/
