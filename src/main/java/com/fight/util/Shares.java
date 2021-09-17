@@ -1,6 +1,6 @@
 package com.fight.util;
 
-public class Future {
+public class Shares {
     private String name;
     private String resNumber;
     private String supportNumber;
@@ -9,7 +9,7 @@ public class Future {
         return name;
     }
 
-    public Future setName(String name) {
+    public Shares setName(String name) {
         this.name = name;
         return this;
     }
@@ -18,7 +18,7 @@ public class Future {
         return resNumber;
     }
 
-    public Future setResNumber(String resNumber) {
+    public Shares setResNumber(String resNumber) {
         this.resNumber = resNumber;
         return this;
     }
@@ -27,7 +27,7 @@ public class Future {
         return supportNumber;
     }
 
-    public Future setSupportNumber(String supportNumber) {
+    public Shares setSupportNumber(String supportNumber) {
         this.supportNumber = supportNumber;
         return this;
     }
