@@ -24,15 +24,18 @@ public class SharesExport {
      */
     public static void main(String[] args) throws Exception {
         //用当日15:00收盘的价格预测明天的位置
-        String fullFileNameTom = "C:\\new_tdx\\T0002\\export\\自选股"+format(new Date(),YYYYMMDD)+".xlsx";
+        String fullFileNameTom = "C:\\new_tdx\\T0002\\export\\自选股" + format(new Date(), YYYYMMDD) + ".xlsx";
         List<Shares> SharesTom = readXlsx(fullFileNameTom);
-        System.out.println(SharesTom);
+//        System.out.println(SharesTom);
         //用当日15:00收盘的价格总结昨天的预测精准度
-        Calendar cal=Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        cal.add(Calendar.DATE,-1);
-        String fullFileNameYes = "C:\\new_tdx\\T0002\\export\\自选股"+format(cal.getTime(),YYYYMMDD)+".xlsx";
+        cal.add(Calendar.DATE, -1);
+        String fullFileNameYes = "C:\\new_tdx\\T0002\\export\\自选股" + format(cal.getTime(), YYYYMMDD) + ".xlsx";
         List<Shares> SharesYes = readXlsx(fullFileNameYes);
+        for (int i = 0; i < SharesYes.size(); i++) {
+            SharesYes.get(i).setEndPrice(SharesTom.get(i).getEndPrice());
+        }
         System.out.println(SharesYes);
     }
 
@@ -47,11 +50,11 @@ public class SharesExport {
         InputStream in = new FileInputStream(fullFileName);
         Workbook xWorkbook = null;
         String ext = fullFileName.substring(fullFileName.lastIndexOf("."));
-        if(EXCEL2003.equals(ext)){
+        if (EXCEL2003.equals(ext)) {
             xWorkbook = new HSSFWorkbook(in);
-        }else if (EXCEL2007.equals(ext)){
+        } else if (EXCEL2007.equals(ext)) {
             xWorkbook = new XSSFWorkbook(in);
-        }else {
+        } else {
             xWorkbook = null;
         }
         Sheet xssfSheet = xWorkbook.getSheetAt(0);
@@ -76,7 +79,10 @@ public class SharesExport {
     private static Shares countOnePressLocation(Double high, Double low, Double end) {
         double pivot = (high + low + end) / 3;
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-        return new Shares().setResNumber(decimalFormat.format(2 * pivot - low)).setSupportNumber(decimalFormat.format(2 * pivot - high));
+        return new Shares().
+                setResPrice(decimalFormat.format(2 * pivot - low)).
+                setSupportPrice(decimalFormat.format(2 * pivot - high)).
+                setEndPrice(decimalFormat.format(end));
     }
 
     /**
@@ -97,8 +103,8 @@ public class SharesExport {
             int temp;
             //用来暂时存放数据的，FileInputStream 的read方法会重复向里面读数据，
             //接着通过ByteArrayOutputStream写，这是一个重复的过程。直到temp= -1 代表读完。然后return。
-            byte[] bt = new byte[1024*10];
-            while((temp = fis.read(bt))!= -1) {
+            byte[] bt = new byte[1024 * 10];
+            while ((temp = fis.read(bt)) != -1) {
                 bos.write(bt, 0, temp);
             }
             bos.flush();
@@ -106,10 +112,10 @@ public class SharesExport {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             //关流
             try {
-                if(null != fis)
+                if (null != fis)
                     fis.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -118,10 +124,10 @@ public class SharesExport {
         return bos.toByteArray();
     }
 
-    private static String format(Date date,String format){
+    private static String format(Date date, String format) {
         String result = "";
         try {
-            if (date != null){
+            if (date != null) {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
                 result = simpleDateFormat.format(date);
             }

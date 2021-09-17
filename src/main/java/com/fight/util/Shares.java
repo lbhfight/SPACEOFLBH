@@ -2,8 +2,9 @@ package com.fight.util;
 
 public class Shares {
     private String name;
-    private String resNumber;
-    private String supportNumber;
+    private String resPrice;
+    private String supportPrice;
+    private String endPrice;
 
     public String getName() {
         return name;
@@ -14,30 +15,40 @@ public class Shares {
         return this;
     }
 
-    public String getResNumber() {
-        return resNumber;
+    public String getResPrice() {
+        return resPrice;
     }
 
-    public Shares setResNumber(String resNumber) {
-        this.resNumber = resNumber;
+    public Shares setResPrice(String resPrice) {
+        this.resPrice = resPrice;
         return this;
     }
 
-    public String getSupportNumber() {
-        return supportNumber;
+    public String getSupportPrice() {
+        return supportPrice;
     }
 
-    public Shares setSupportNumber(String supportNumber) {
-        this.supportNumber = supportNumber;
+    public Shares setSupportPrice(String supportPrice) {
+        this.supportPrice = supportPrice;
+        return this;
+    }
+
+    public String getEndPrice() {
+        return endPrice;
+    }
+
+    public Shares setEndPrice(String endPrice) {
+        this.endPrice = endPrice;
         return this;
     }
 
     @Override
     public String toString() {
-        return "{" +
-                "name:'" + name + '\'' +
-                ", resNumber:'" + resNumber + '\'' +
-                ", supportNumber:'" + supportNumber + '\'' +
+        return "Shares{" +
+                "name='" + name + '\'' +
+                ", resPrice='" + resPrice + '\'' +
+                ", endPrice='" + endPrice + '\'' +
+                ", supportPrice='" + supportPrice + '\'' +
                 '}';
     }
 }
