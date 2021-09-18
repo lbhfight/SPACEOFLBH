@@ -11,6 +11,13 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * @className: SharesExport
+ * @description: 导出数据解析
+ * @author: cp3
+ * @date: 2021/9/18 10:44
+ * @version 1.0
+ */
 public class SharesExport {
 
     private final static String EXCEL2003 = ".xls";
@@ -18,9 +25,12 @@ public class SharesExport {
     private final static String YYYYMMDD = "yyyyMMdd";
 
     /**
-     * 获取每日自选股的支撑压力位
-     * param：high，low，end
-     * return：Future
+     * @method: main
+     * @description: 获取每日自选股的支撑压力位
+     * @param: args
+     * @return: void
+     * @author: cp3
+     * @date: 2021/9/18 10:44
      */
     public static void main(String[] args) throws Exception {
         //用当日15:00收盘的价格预测明天的位置
@@ -40,9 +50,12 @@ public class SharesExport {
     }
 
     /**
-     * 读取文件并计算
-     * param：fullFileName
-     * return：List<Future>
+     * @method: readXlsx
+     * @description: 读取文件并计算
+     * @param: fullFileName
+     * @return: java.util.List<com.fight.util.Shares>
+     * @author: cp3
+     * @date: 2021/9/18 10:45
      */
     public static List<Shares> readXlsx(String fullFileName) throws Exception {
 
@@ -72,9 +85,12 @@ public class SharesExport {
     }
 
     /**
-     * 计算第一压力支撑位
-     * param：high，low，end
-     * return：Future
+     * @method: countOnePressLocation
+     * @description: 计算第一压力支撑位
+     * @param: high low end
+     * @return: com.fight.util.Shares
+     * @author: cp3
+     * @date: 2021/9/18 10:56
      */
     private static Shares countOnePressLocation(Double high, Double low, Double end) {
         double pivot = (high + low + end) / 3;
@@ -86,9 +102,12 @@ public class SharesExport {
     }
 
     /**
-     * 文件通过输入流写到字节数组，文件到字节数组的过程
-     * param：fileName
-     * return：byte[]
+     * @method: FileToByteArray
+     * @description: 文件通过输入流写到字节数组，文件到字节数组的过程
+     * @param: fileName
+     * @return: byte[]
+     * @author: cp3
+     * @date: 2021/9/18 10:51
      */
     private static byte[] FileToByteArray(String fileName) {
         //选择源
@@ -124,6 +143,14 @@ public class SharesExport {
         return bos.toByteArray();
     }
 
+    /**
+     * @method: format
+     * @description: 日期转换成对应格式
+     * @param: date format
+     * @return: java.lang.String
+     * @author: cp3
+     * @date: 2021/9/18 11:01
+     */
     private static String format(Date date, String format) {
         String result = "";
         try {

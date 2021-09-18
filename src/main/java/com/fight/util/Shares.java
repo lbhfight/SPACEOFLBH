@@ -1,5 +1,12 @@
 package com.fight.util;
 
+/**
+ * @className: Shares.java
+ * @description: 股票实体
+ * @author: cp3
+ * @date: 2021/9/18 11:03
+ * @version 1.0
+ */
 public class Shares {
     private String name;
     private String resPrice;
