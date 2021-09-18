@@ -36,13 +36,14 @@ public class SharesExport {
         //用当日15:00收盘的价格预测明天的位置
         String fullFileNameTom = "C:\\new_tdx\\T0002\\export\\自选股" + format(new Date(), YYYYMMDD) + ".xlsx";
         List<Shares> SharesTom = readXlsx(fullFileNameTom);
-//        System.out.println(SharesTom);
+        //System.out.println(SharesTom);
         //用当日15:00收盘的价格总结昨天的预测精准度
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.add(Calendar.DATE, -1);
         String fullFileNameYes = "C:\\new_tdx\\T0002\\export\\自选股" + format(cal.getTime(), YYYYMMDD) + ".xlsx";
         List<Shares> SharesYes = readXlsx(fullFileNameYes);
+        //把当日的收盘价和昨日的预判价格放到一起
         for (int i = 0; i < SharesYes.size(); i++) {
             SharesYes.get(i).setEndPrice(SharesTom.get(i).getEndPrice());
         }
