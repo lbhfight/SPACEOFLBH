@@ -34,20 +34,34 @@ public class SharesExport {
      */
     public static void main(String[] args) throws Exception {
         //用当日15:00收盘的价格预测明天的位置
-        String fullFileNameTom = "C:\\new_tdx\\T0002\\export\\自选股" + format(new Date(), YYYYMMDD) + ".xlsx";
+        String today = format(new Date(), YYYYMMDD);
+//        String today = "20210930";
+        String fullFileNameTom = "C:\\new_tdx\\T0002\\export\\自选股" + today + ".xlsx";
         List<Shares> SharesTom = readXlsx(fullFileNameTom);
-        //System.out.println(SharesTom);
+        for (Shares shares : SharesTom) {
+            System.out.println(shares.getName()+":"+shares.getResPrice()+" "+shares.getSupportPrice());
+        }
+        System.out.println("===============================今日收盘对比昨天===========================================");
         //用当日15:00收盘的价格总结昨天的预测精准度
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.add(Calendar.DATE, -1);
-        String fullFileNameYes = "C:\\new_tdx\\T0002\\export\\自选股" + format(cal.getTime(), YYYYMMDD) + ".xlsx";
+        String yesterday = format(cal.getTime(), YYYYMMDD);
+//        String yesterday = "20220701";
+        String fullFileNameYes = "C:\\new_tdx\\T0002\\export\\自选股" + yesterday + ".xlsx";
         List<Shares> SharesYes = readXlsx(fullFileNameYes);
         //把当日的收盘价和昨日的预判价格放到一起
         for (int i = 0; i < SharesYes.size(); i++) {
             SharesYes.get(i).setEndPrice(SharesTom.get(i).getEndPrice());
+            if (Double.valueOf(SharesYes.get(i).getEndPrice())>Double.valueOf(SharesYes.get(i).getResPrice())){
+                System.out.println(SharesYes.get(i).getName()+":"+SharesYes.get(i).getResPrice()+" "+SharesYes.get(i).getEndPrice()+" "+SharesYes.get(i).getSupportPrice()+" ↑");
+
+            } else if(Double.valueOf(SharesYes.get(i).getEndPrice())<Double.valueOf(SharesYes.get(i).getSupportPrice())){
+                System.out.println(SharesYes.get(i).getName()+":"+SharesYes.get(i).getResPrice()+" "+SharesYes.get(i).getEndPrice()+" "+SharesYes.get(i).getSupportPrice()+" ↓");
+            }else {
+                System.out.println(SharesYes.get(i).getName()+":较昨天相比没有突破压力或支撑位");
+            }
         }
-        System.out.println(SharesYes);
     }
 
     /**

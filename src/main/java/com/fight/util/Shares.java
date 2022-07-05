@@ -9,8 +9,20 @@ package com.fight.util;
  */
 public class Shares {
     private String name;
+
+    /**
+     * 压力位
+     */
     private String resPrice;
+
+    /**
+     * 支撑位
+     */
     private String supportPrice;
+
+    /**
+     * 收盘价
+     */
     private String endPrice;
 
     public String getName() {
